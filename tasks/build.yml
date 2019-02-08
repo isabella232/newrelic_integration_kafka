@@ -1,0 +1,27 @@
+---
+
+- name: Install New Relic dependencies
+  become: yes
+  apt:
+    pkg:
+      - apt-transport-https
+      - apt-utils
+    state: present
+
+- name: Ensure New Relic PGP key is known to the server
+  become: yes
+  apt_key:
+    id: "{{ sansible_newrelic_integration_kafka_apt.key_id }}"
+    keyserver: hkp://keyserver.ubuntu.com:80
+    state: present
+
+- name: Add New Relic APT repository
+  become: yes
+  apt_repository:
+    repo: "{{ sansible_newrelic_integration_kafka_apt.repo }}"
+    update_cache: yes
+
+- name: Install Kafka integration
+  become: yes
+  apt:
+    name: "nri-kafka={{ sansible_newrelic_integration_kafka_version }}"

@@ -12,9 +12,19 @@ platforms:
   - name: newrelic_integration_kafka-trusty
     image: ubuntu:trusty
   - name: newrelic_integration_kafka-xenial
-    image: ubuntu:xenial
+    image: solita/ubuntu-systemd:xenial
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: newrelic_integration_kafka-bionic
-    image: ubuntu:bionic
+    image: solita/ubuntu-systemd:bionic
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
 # Ansible is the only supported provisioner. Configure Ansible options here, change the linter for Ansible playbooks,
 # or modify the playbooks run for the various molecule tasks.
@@ -43,6 +53,9 @@ lint:
 # is available. See https://molecule.readthedocs.io/en/latest/configuration.html#dependency for details.
 dependency:
   name: galaxy
+  options:
+    ignore-certs: True
+    role-file: requirements.yml
 
 # Every role to be tested via molecule requires at least one scenario. Change the tasks executed for molecule
 # commands here, if necessary.

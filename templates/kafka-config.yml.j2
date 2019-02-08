@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+integration_name: com.newrelic.kafka
+
+instances:
+{% for config_tuple in instances | dictsort %}
+  - {{ config_tuple[1] | to_nice_yaml | indent(4, first=false) }}
+{% endfor %}

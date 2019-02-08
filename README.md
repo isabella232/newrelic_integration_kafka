@@ -39,9 +39,10 @@ Simply include role in your playbook
 - name: Install and Configure newrelic_integration_kafka
   hosts: somehost
 
-  vars:
-
-
   roles:
     - role: sansible.newrelic_integration_kafka
+      sansible_newrelic_integration_kafka_zookeeper:
+        hosts:
+          - host: zookeeper.app.internal
+            port: 2181
 ```

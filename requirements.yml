@@ -1,0 +1,4 @@
+---
+
+- src: sansible.newrelic_integration_infra
+  version: v1.0.0-latest
