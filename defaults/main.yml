@@ -3,29 +3,23 @@
 # all version listed here:
 # https://download.newrelic.com/infrastructure_agent/linux/apt/pool/main/n/nri-kafka/
 sansible_newrelic_integration_kafka_version: "1.1.*"
-sansible_newrelic_integration_kafka_instances: []
+sansible_newrelic_integration_kafka_instances: {}
 sansible_newrelic_integration_kafka_labels: {}
 sansible_newrelic_integration_kafka_apt:
   key_id: 8ECCE87C
   repo: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt
     {{ ansible_distribution_release }} main"
-sansible_newrelic_integration_kafka_zookeeper:
-  # In order to collect broker and topic metrics a Zookeeper connection needs to be specified.
-  # The "zookeeper_hosts" field is a JSON array, each entry in the array connection information for a Zookeeper
-  # node.
-  # Each entry should have the following fields:
-  # - host: The IP or Hostname of a Zookeeper node, if the New Relic agent is installed on a Zookeeper node "localhost" is an acceptable value
-  # - port: The port Zookeeper is listening on for incoming requests. If omitted, a default port of 2181 will be used.
-  # Example: '[{"host": "zookeeper.my.localnet", "port": 2181}]'
-  #
-  # Note: If only collecting producers/consumers and "topic_mode" is set to "List" all Zookeeper fields can be omitted.
-  hosts: []
-  # Authentication type for zookeeper. Currently only supports auth scheme "user". Defaults to no authentication.
-  auth_scheme: ''
-  # If using "user" authentication, the credentials must be specified as a string of the form "<user>:<password>"
-  # Example: 'zookeeperuser:zookeeperpass'
-  auth_secret: ''
-  # If the Kafka configuration files are not in the root node of Zookeeper, an alternative root can be specified.
-  # The alternative root must have a leading slash.
-  # Example: '/kafka-root'
-  path: ''
+# In order to collect broker and topic metrics a Zookeeper connection needs to be specified.
+# Each entry should have the following fields:
+# - host: The IP or Hostname of a Zookeeper node, if the New Relic agent is installed on a Zookeeper node "localhost" is an acceptable value
+# - port: The port Zookeeper is listening on for incoming requests. If omitted, a default port of 2181 will be used.
+sansible_newrelic_integration_kafka_zookeeper_hosts: []
+# Authentication type for zookeeper. Currently only supports auth scheme "user". Defaults to no authentication.
+sansible_newrelic_integration_kafka_zookeeper_auth_scheme: ''
+# If using "user" authentication, the credentials must be specified as a string of the form "<user>:<password>"
+# Example: 'zookeeperuser:zookeeperpass'
+sansible_newrelic_integration_kafka_zookeeper_auth_secret: ''
+# If the Kafka configuration files are not in the root node of Zookeeper, an alternative root can be specified.
+# The alternative root must have a leading slash.
+# Example: '/kafka-root'
+sansible_newrelic_integration_kafka_zookeeper_path: ''

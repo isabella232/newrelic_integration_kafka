@@ -6,6 +6,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_integration_package(host):
-    nginx = host.package("nri-kafka")
-    assert nginx.is_installed
-    assert nginx.version.startswith("1.1")
+    newrelic_kafka = host.package("nri-kafka")
+    assert newrelic_kafka.is_installed
+    assert newrelic_kafka.version.startswith("1.1")
