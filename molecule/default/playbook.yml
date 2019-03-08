@@ -12,7 +12,10 @@
           role: newrelic
 
     - role: newrelic_integration_kafka
-      sansible_newrelic_integration_kafka_zookeeper:
-        hosts:
-          - host: zookeeper1.localnet
-            port: 2181
+      sansible_newrelic_integration_kafka_zookeeper_hosts:
+        - host: zookeeper1.localnet
+          port: 2181
+      sansible_newrelic_integration_kafka_instances:
+        kafka-metrics:
+          arguments:
+            default_jmx_port: 1234

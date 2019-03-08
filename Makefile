@@ -1,6 +1,12 @@
 ANSIBLE_INSTALL_VERSION ?= 2.7.6
 PATH := $(PWD)/.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin:$(shell printenv PATH)
-SHELL := env PATH=$(PATH) /bin/bash
+SHELL := env PATH='$(PATH)' /bin/bash
+
+ifeq ($(SCENARIO), all)
+SCENARIO_OPT = "--all"
+else
+SCENARIO_OPT = "--scenario-name=$(SCENARIO)"
+endif
 
 .DEFAULT_GOAL := help
 .PHONY: all clean destroy help test
@@ -48,7 +54,12 @@ login_%: .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 
 ## Run 'molecule test --destroy=never' (run 'make destroy' to destroy containers)
 test: .venv_ansible$(ANSIBLE_INSTALL_VERSION)
-	@molecule test --destroy=never
+	@.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/molecule test $(SCENARIO_OPT) --destroy=never
+
+
+## Run 'molecule verify'
+verify: .venv_ansible$(ANSIBLE_INSTALL_VERSION)
+	@.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/molecule verify $(SCENARIO_OPT)
 
 
 # shortcut for creating venv

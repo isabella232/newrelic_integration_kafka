@@ -5,5 +5,5 @@
     dest: /etc/newrelic-infra/integrations.d/kafka-config.yml
     src: kafka-config.yml.j2
   vars:
-    instances: "{{ sansible_newrelic_integration_kafka_instances_default
-      | combine(sansible_newrelic_integration_kafka_instances) }}"
+    instances: "{{ {} | combine(sansible_newrelic_integration_kafka_instances_default)
+      | combine(sansible_newrelic_integration_kafka_instances, recursive=True) }}"

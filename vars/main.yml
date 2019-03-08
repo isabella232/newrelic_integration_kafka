@@ -5,10 +5,10 @@ sansible_newrelic_integration_kafka_instances_default:
     name: kafka-metrics
     command: metrics
     arguments:
-      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper.hosts | to_json }}"
-      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_scheme }}"
-      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_secret }}"
-      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper.path }}"
+      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper_hosts | to_json }}"
+      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_scheme }}"
+      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_secret }}"
+      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper_path }}"
 
       # It is common to use the same JMX configuration across a Kafka cluster
       # The default username and password are the credentials that will be used to make
@@ -64,10 +64,10 @@ sansible_newrelic_integration_kafka_instances_default:
     command: inventory
     arguments:
       # More information about the zookeeper connection can be found above
-      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper.hosts | to_json }}"
-      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_scheme }}"
-      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_secret }}"
-      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper.path }}"
+      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper_hosts | to_json }}"
+      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_scheme }}"
+      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_secret }}"
+      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper_path }}"
 
       # Below are the fields used to fine tune/toggle topic inventory collection.
       # In order to collect topics the "topic_mode" field must be set to "All" or "List". If the field is set to "All"
@@ -84,10 +84,10 @@ sansible_newrelic_integration_kafka_instances_default:
     command: consumer_offset
     arguments:
       # More information about the zookeeper connection can be found above
-      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper.hosts | to_json }}"
-      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_scheme }}"
-      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper.auth_secret }}"
-      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper.path }}"
+      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper_hosts | to_json }}"
+      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_scheme }}"
+      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_secret }}"
+      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper_path }}"
 
       # Whitelist of consumer groups to collect offset data for. This feature is only avaiable in Kafka 0.8.2.2 and above.
       # The value should be a JSON object with the follow structure:
