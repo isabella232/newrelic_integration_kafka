@@ -2,6 +2,27 @@
 integration_name: com.newrelic.kafka
 
 instances:
-{% for config_tuple in instances | dictsort %}
-  - {{ config_tuple[1] | to_nice_yaml | indent(4, first=false) }}
+{% for config in instances %}
+  - name: {{ config.name }}
+    command: {{ config.command }}
+    {%- set arguments = config.arguments -%}
+    {% if config.arguments.autodiscover_strategy is defined -%}
+      {% if config.arguments.autodiscover_strategy == 'bootstrap' %}
+        {% set arguments = {} | combine(broker_bootstrap) | combine(config.arguments) %}
+      {% endif %}
+      {% if config.arguments.autodiscover_strategy == 'zookeeper' %}
+        {% set arguments = {} | combine(zookeeper_bootstrap) | combine(config.arguments) %}
+      {% endif %}
+    {%- endif %}
+
+    {% if arguments | length > 0 -%}
+    arguments:
+      {{ arguments | to_nice_yaml | indent(6, first=false) }}
+    {%- endif %}
+
+    {% if sansible_newrelic_integration_kafka_labels | length > 0 -%}
+    labels:
+      {{ sansible_newrelic_integration_kafka_labels | to_nice_yaml | indent(6, first=false) }}
+    {%- endif %}
+
 {% endfor %}

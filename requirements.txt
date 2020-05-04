@@ -1,5 +1,5 @@
-docker-py
+ansible-lint
+docker
 flake8
 molecule
-yamllint
-pyyaml
+testinfra
