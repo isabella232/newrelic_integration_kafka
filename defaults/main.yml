@@ -2,13 +2,30 @@
 
 # all version listed here:
 # https://download.newrelic.com/infrastructure_agent/linux/apt/pool/main/n/nri-kafka/
-sansible_newrelic_integration_kafka_version: "1.1.*"
-sansible_newrelic_integration_kafka_instances: {}
+sansible_newrelic_integration_kafka_version: "2.*"
+sansible_newrelic_integration_kafka_instances: []
+# Example
+# - name: metric
+#   command: metrics
+#   arguments:
+#     cluster_name: kafka
+#     autodiscover_strategy: zookeeper
+#     default_jmx_port: 1234
 sansible_newrelic_integration_kafka_labels: {}
 sansible_newrelic_integration_kafka_apt:
   key_id: 8ECCE87C
   repo: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt
     {{ ansible_distribution_release }} main"
+
+# How to find brokers. Either "bootstrap" or "zookeeper"
+sansible_newrelic_integration_kafka_autodiscover_strategy: bootstrap
+
+# Bootstrap broker arguments. These configure a connection to a single broker. The rest
+# of the brokers in the cluster will be discovered using that connection.
+sansible_newrelic_integration_kafka_bootstrap_broker_host: localhost
+sansible_newrelic_integration_kafka_bootstrap_broker_kafka_port: 9092
+sansible_newrelic_integration_kafka_bootstrap_broker_kafka_protocol: PLAINTEXT
+
 # In order to collect broker and topic metrics a Zookeeper connection needs to be specified.
 # Each entry should have the following fields:
 # - host: The IP or Hostname of a Zookeeper node, if the New Relic agent is installed on a Zookeeper node "localhost" is an acceptable value

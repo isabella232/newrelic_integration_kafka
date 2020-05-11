@@ -5,5 +5,13 @@
     dest: /etc/newrelic-infra/integrations.d/kafka-config.yml
     src: kafka-config.yml.j2
   vars:
-    instances: "{{ {} | combine(sansible_newrelic_integration_kafka_instances_default)
-      | combine(sansible_newrelic_integration_kafka_instances, recursive=True) }}"
+    instances: "{{ sansible_newrelic_integration_kafka_instances }}"
+    broker_bootstrap:
+      bootstrap_broker_host: "{{ sansible_newrelic_integration_kafka_bootstrap_broker_host }}"
+      bootstrap_broker_kafka_port: "{{ sansible_newrelic_integration_kafka_bootstrap_broker_kafka_port }}"
+      bootstrap_broker_kafka_protocol: "{{ sansible_newrelic_integration_kafka_bootstrap_broker_kafka_protocol }}"
+    zookeeper_bootstrap:
+      zookeeper_hosts: "{{ sansible_newrelic_integration_kafka_zookeeper_hosts | to_json }}"
+      zookeeper_auth_scheme: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_scheme }}"
+      zookeeper_auth_secret: "{{ sansible_newrelic_integration_kafka_zookeeper_auth_secret }}"
+      zookeeper_path: "{{ sansible_newrelic_integration_kafka_zookeeper_path }}"

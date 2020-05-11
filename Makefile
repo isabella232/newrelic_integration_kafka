@@ -1,11 +1,12 @@
-ANSIBLE_INSTALL_VERSION ?= 2.7.6
+ANSIBLE_INSTALL_VERSION ?= 2.9.7
 PATH := $(PWD)/.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin:$(shell printenv PATH)
-SHELL := env PATH='$(PATH)' /bin/bash
+SCENARIO ?= all
+SHELL := env PATH=$(PATH) /bin/bash
 
 ifeq ($(SCENARIO), all)
-SCENARIO_OPT = "--all"
+SCENARIO_OPT =
 else
-SCENARIO_OPT = "--scenario-name=$(SCENARIO)"
+SCENARIO_OPT = --scenario-name=$(SCENARIO)
 endif
 
 .DEFAULT_GOAL := help
@@ -75,7 +76,6 @@ verify: .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 	virtualenv .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 	.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/pip install -r requirements.txt --ignore-installed
 	.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/pip install ansible==$(ANSIBLE_INSTALL_VERSION)
-	virtualenv --relocatable .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 	@echo -e "\033[0;32mINFO: Run 'make activate' to activate the virtualenv for this shell\033[0m"
 
 
